@@ -9,18 +9,21 @@ const getProducts = async () => {
   return await response.json();
 };
 
-const getCatFacts = async () => {
-  const response = await fetch("https://meowfacts.herokuapp.com/", {
-    // 0으로 설정 시 SSG가 아니라 SSR처럼 동작
-    next: { revalidate: 10 },
-    // 또는 cache: "no-store"를 설정하여 캐시를 사용하지 않도록 설정하여도 SSR처럼 동작
-  });
-  return await response.json();
-};
+// const getCatFacts = async () => {
+//   const response = await fetch("https://meowfacts.herokuapp.com/", {
+//     // 0으로 설정 시 SSG가 아니라 SSR처럼 동작
+//     next: { revalidate: 10 },
+//     // 또는 cache: "no-store"를 설정하여 캐시를 사용하지 않도록 설정하여도 SSR처럼 동작
+//   });
+//   return await response.json();
+// };
 const ProductsPage = async () => {
-  const [{ res: products }, { data: catFacts }] = await Promise.all([
+  const [
+    { res: products },
+    // , { data: catFacts }
+  ] = await Promise.all([
     getProducts(),
-    getCatFacts(),
+    // getCatFacts(),
   ]);
 
   return (
@@ -34,7 +37,7 @@ const ProductsPage = async () => {
           </li>
         ))}
       </ul>
-      <p>{catFacts[0]}</p>
+      {/* <p>{catFacts[0]}</p> */}
     </>
   );
 };
